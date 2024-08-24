@@ -36,6 +36,8 @@ const Statistics = (props) => {
   console.log('Total', total)
   console.log('Binary sum', binarySum)
 
+  if (total === 0) return <div><p>No feedback given</p></div>
+
   return (
     <div>
       <Display text='Good' value={props.good}/>
