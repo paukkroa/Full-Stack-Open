@@ -11,7 +11,7 @@ const Header = (props) => {
   )
 }
 
-const Display = props => <div>{props.text} {props.value}</div>
+const Display = props => <div>{props.text} {props.value} {props.unit}</div>
 
 const Button = (props) => (
   <button onClick={props.handleClick}>
@@ -19,31 +19,52 @@ const Button = (props) => (
   </button>
 )
 
+const calculateAverage = (num, denom) => {
+  if (denom === 0) return 0
+  return num / denom
+}
+
+const calculatePercentage = (num, denom) => {
+  const avg = calculateAverage(num, denom)
+  return avg * 100
+};
+
 const App = () => {
   const header = 'Give feedback'
   const divider = 'Statistics'
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
+  const [total, setTotal] = useState(0)
+  const [binarySum, setBinarySum] = useState(0)
 
 
   const handleGoodClick = () => {
-    console.log('Good before', good)
     setGood(good + 1)
-    console.log('Good after', good + 1)
+    setTotal(total + 1)
+    setBinarySum(binarySum + 1)
+    console.log('Good', good + 1)
+    console.log('Total', total + 1)
+    console.log('BinarySum', binarySum + 1)
   }
 
   const handleNeutralClick = () => {
-    console.log('Neutral before', neutral)
     setNeutral(neutral + 1)
-    console.log('Neutral after', neutral + 1)
+    setTotal(total + 1)
+    console.log('Neutral', neutral + 1)
+    console.log('Total', total + 1)
+    console.log('BinarySum', binarySum)
   }
 
   const handleBadClick = () => {
-    console.log('Bad before', bad)
     setBad(bad + 1)
-    console.log('Bad after', bad + 1)
+    setTotal(total + 1)
+    setBinarySum(binarySum - 1)
+    console.log('Bad', bad + 1)
+    console.log('Total', total + 1)
+    console.log('BinarySum', binarySum - 1)
   }
+
 
   return (
     <div>
@@ -58,6 +79,9 @@ const App = () => {
         <Display text='Good' value={good}/>
         <Display text='Neutral' value={neutral}/>
         <Display text='Bad' value={bad}/>
+        <Display text='Total' value={total}/>
+        <Display text='Average' value={calculateAverage(binarySum, total)}/>
+        <Display text='Positives' value={calculatePercentage(good, total)} unit='%'/>
       </div>
     </div>
   )
