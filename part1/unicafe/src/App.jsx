@@ -29,6 +29,25 @@ const calculatePercentage = (num, denom) => {
   return avg * 100
 };
 
+const Statistics = (props) => {
+  console.log(props)
+  const total = props.good + props.neutral + props.bad
+  const binarySum = props.good - props.bad
+  console.log('Total', total)
+  console.log('Binary sum', binarySum)
+
+  return (
+    <div>
+      <Display text='Good' value={props.good}/>
+      <Display text='Neutral' value={props.neutral}/>
+      <Display text='Bad' value={props.bad}/>
+      <Display text='Total' value={total}/>
+      <Display text='Average' value={calculateAverage(binarySum, total)}/>
+      <Display text='Positives' value={calculatePercentage(props.good, total)} unit='%'/>
+    </div>
+  )
+}
+
 const App = () => {
   const header = 'Give feedback'
   const divider = 'Statistics'
@@ -75,14 +94,7 @@ const App = () => {
         <Button handleClick={handleBadClick} text='bad' />
       </div>
       <Header text={divider}/>
-      <div>
-        <Display text='Good' value={good}/>
-        <Display text='Neutral' value={neutral}/>
-        <Display text='Bad' value={bad}/>
-        <Display text='Total' value={total}/>
-        <Display text='Average' value={calculateAverage(binarySum, total)}/>
-        <Display text='Positives' value={calculatePercentage(good, total)} unit='%'/>
-      </div>
+      <Statistics good={good} bad={bad} neutral={neutral} />
     </div>
   )
 }
