@@ -22,3 +22,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+part1/kurssitiedot/src/Counter.jsx
+part1/kurssitiedot/src/MultipleStates.jsx
