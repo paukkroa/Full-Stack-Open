@@ -11,7 +11,7 @@ const Header = (props) => {
   )
 }
 
-const Display = props => <div>{props.text} {props.value} {props.unit}</div>
+const StatisticLine = props => <div>{props.text} {props.value} {props.unit}</div>
 
 const Button = (props) => (
   <button onClick={props.handleClick}>
@@ -40,12 +40,12 @@ const Statistics = (props) => {
 
   return (
     <div>
-      <Display text='Good' value={props.good}/>
-      <Display text='Neutral' value={props.neutral}/>
-      <Display text='Bad' value={props.bad}/>
-      <Display text='Total' value={total}/>
-      <Display text='Average' value={calculateAverage(binarySum, total)}/>
-      <Display text='Positives' value={calculatePercentage(props.good, total)} unit='%'/>
+      <StatisticLine text='Good' value={props.good}/>
+      <StatisticLine text='Neutral' value={props.neutral}/>
+      <StatisticLine text='Bad' value={props.bad}/>
+      <StatisticLine text='Total' value={total}/>
+      <StatisticLine text='Average' value={calculateAverage(binarySum, total)}/>
+      <StatisticLine text='Positives' value={calculatePercentage(props.good, total)} unit='%'/>
     </div>
   )
 }
