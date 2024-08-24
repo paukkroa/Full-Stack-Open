@@ -11,7 +11,11 @@ const Header = (props) => {
   )
 }
 
-const StatisticLine = props => <div>{props.text} {props.value} {props.unit}</div>
+const StatisticRow = props => <tr> 
+    <td>{props.text}</td> 
+    <td>{props.value}</td> 
+    <td>{props.unit}</td>
+  </tr> 
 
 const Button = (props) => (
   <button onClick={props.handleClick}>
@@ -39,14 +43,16 @@ const Statistics = (props) => {
   if (total === 0) return <div><p>No feedback given</p></div>
 
   return (
-    <div>
-      <StatisticLine text='Good' value={props.good}/>
-      <StatisticLine text='Neutral' value={props.neutral}/>
-      <StatisticLine text='Bad' value={props.bad}/>
-      <StatisticLine text='Total' value={total}/>
-      <StatisticLine text='Average' value={calculateAverage(binarySum, total)}/>
-      <StatisticLine text='Positives' value={calculatePercentage(props.good, total)} unit='%'/>
-    </div>
+    <table>
+      <tbody>
+        <StatisticRow text='Good' value={props.good}/>
+        <StatisticRow text='Neutral' value={props.neutral}/>
+        <StatisticRow text='Bad' value={props.bad}/>
+        <StatisticRow text='Total' value={total}/>
+        <StatisticRow text='Average' value={calculateAverage(binarySum, total)}/>
+        <StatisticRow text='Positives' value={calculatePercentage(props.good, total)} unit='%'/>
+      </tbody>
+    </table>
   )
 }
 
