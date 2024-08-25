@@ -24,3 +24,4 @@ dist-ssr
 *.sw?
 part1/kurssitiedot/src/Counter.jsx
 part1/kurssitiedot/src/MultipleStates.jsx
+part2/playground
