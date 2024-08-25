@@ -11,6 +11,18 @@ const Button = (props) => (
   </button>
 )
 
+const DisplayVotes = (props) => {
+  console.log(props)
+  return (
+    <div>
+      <p>
+        has {props.value} votes
+      </p>
+    </div>
+  )
+}
+
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -22,13 +34,24 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when dianosing patients.',
     'The only way to go fast, is to go well.'
   ]
-   
+  const anecdotesLength = anecdotes.length
+  const [votes, setVotes] = useState(new Uint8Array(anecdotesLength));
+  console.log(votes)
+
   const [selected, setSelected] = useState(0)
 
   const handleRandomClick = () => {
-    const randomInt = getRandomInt(0, anecdotes.length)
+    const randomInt = getRandomInt(0, anecdotesLength)
     console.log(randomInt); // e.g., 3
     setSelected(randomInt)
+  }
+
+  const handleVoteClick = () => {
+    const copy = [...votes];
+    console.log('Votes before', copy)
+    copy[selected] += 1;
+    console.log('Votes after', copy)
+    setVotes(copy);
   }
 
   return (
@@ -36,7 +59,9 @@ const App = () => {
       <div>
         {anecdotes[selected]}
       </div>
+      <DisplayVotes value={votes[selected]} />
       <div>
+        <Button handleClick={handleVoteClick} text='Vote' />
         <Button handleClick={handleRandomClick} text='Next anecdote' />
       </div>
     </div>
