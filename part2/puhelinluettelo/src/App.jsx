@@ -6,10 +6,6 @@ const Person = ({ person }) => {
   )
 }
 
-const personsToShow = persons.filter(person =>
-  person.name.toLowerCase().includes(filter.toLowerCase())
-)
-
 const addPerson = (event) => {
   event.preventDefault()
   const exists = persons.find(element => element.name === newName) !== undefined
@@ -42,6 +38,10 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
+
+  const personsToShow = persons.filter(person =>
+    person.name.toLowerCase().includes(filter.toLowerCase())
+  )
 
   const handleNameChange = (event) => {
     console.log(event.target.value)
