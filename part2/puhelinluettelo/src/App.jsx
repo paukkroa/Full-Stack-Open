@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import axios from 'axios'
 
 const Person = ({ person }) => {
   return (
@@ -49,6 +50,12 @@ const App = ({persons}) => {
       setPersons(personsState.concat(personObject))
       setNewName('')
       setNewNumber('')
+
+      axios
+        .post('http://localhost:3001/persons', personObject)
+        .then(response => {
+          console.log(response)
+    })
     }
   }
 
