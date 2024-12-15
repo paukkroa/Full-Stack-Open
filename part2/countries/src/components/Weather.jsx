@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-
 import getWeather from "../services/weather"
 
 const Weather = ({ name, lat, lon }) => {
