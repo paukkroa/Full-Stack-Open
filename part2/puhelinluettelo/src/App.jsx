@@ -6,40 +6,13 @@ const Person = ({ person }) => {
   )
 }
 
-const addPerson = (event) => {
-  event.preventDefault()
-  const exists = persons.find(element => element.name === newName) !== undefined
-  console.log(exists)
-  if (exists) {
-    alert(`${newName} is already added to phonebook`)
-    setNewName('')
-    setNewNumber('')
-  }
-  else {
-    const personObject = {
-      name: newName,
-      number: newNumber
-    }
-
-    setPersons(persons.concat(personObject))
-    setNewName('')
-    setNewNumber('')
-  }
-}
-
-const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456' },
-    { name: 'Ada Lovelace', number: '39-44-5323523' },
-    { name: 'Dan Abramov', number: '12-43-234345' },
-    { name: 'Mary Poppendieck', number: '39-23-6423122' }
-  ])
-
+const App = ({persons}) => {
+  const [personsState, setPersons] = useState(persons)
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
 
-  const personsToShow = persons.filter(person =>
+  const personsToShow = personsState.filter(person =>
     person.name.toLowerCase().includes(filter.toLowerCase())
   )
 
@@ -58,6 +31,26 @@ const App = () => {
     setFilter(event.target.value)
   }
 
+  const addPerson = (event) => {
+    event.preventDefault()
+    const exists = personsState.find(element => element.name === newName) !== undefined
+    console.log(exists)
+    if (exists) {
+      alert(`${newName} is already added to phonebook`)
+      setNewName('')
+      setNewNumber('')
+    }
+    else {
+      const personObject = {
+        name: newName,
+        number: newNumber
+      }
+  
+      setPersons(personsState.concat(personObject))
+      setNewName('')
+      setNewNumber('')
+    }
+  }
 
   return (
     <div>
