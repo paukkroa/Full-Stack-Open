@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import axios from 'axios'
+import { useState, useEffect } from 'react'
+import personsService from './services/persons'
 
 const Person = ({ person }) => {
   return (
@@ -7,11 +7,19 @@ const Person = ({ person }) => {
   )
 }
 
-const App = ({persons}) => {
-  const [personsState, setPersons] = useState(persons)
+const App = () => {
+  const [personsState, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
+
+  useEffect(() => {
+    personsService
+      .getAll()
+        .then(initialPersons => {
+        setPersons(initialPersons)
+      })
+  }, [])
 
   const personsToShow = personsState.filter(person =>
     person.name.toLowerCase().includes(filter.toLowerCase())
@@ -46,16 +54,14 @@ const App = ({persons}) => {
         name: newName,
         number: newNumber
       }
-  
-      setPersons(personsState.concat(personObject))
-      setNewName('')
-      setNewNumber('')
 
-      axios
-        .post('http://localhost:3001/persons', personObject)
-        .then(response => {
-          console.log(response)
-    })
+      personsService
+        .create(personObject)
+          .then(returnedPerson => {
+          setPersons(personsState.concat(returnedPerson))
+          setNewName('')
+          setNewNumber('')
+      })
     }
   }
 
