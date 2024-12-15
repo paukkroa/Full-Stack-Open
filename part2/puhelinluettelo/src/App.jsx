@@ -98,8 +98,9 @@ const App = () => {
         }, 5000)
       })
       .catch(error => {
+        console.log(error)
         setErrorMessage(
-          `Note '${person.name}' was already removed from server`
+          `'${person.name}' was already removed from server`
         )
         setTimeout(() => {
           setErrorMessage(null)
@@ -125,8 +126,16 @@ const App = () => {
             setTimeout(() => {
               setStatusMessage(null)
             }, 5000)
+            console.log(`${newName} updated`)
+        }).catch(error => {
+          console.log(error)
+          setErrorMessage(
+            `'${newName}' was already removed from server`
+          )
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
         })
-        console.log(`${newName} updated`)
       }
     }
     else {
