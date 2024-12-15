@@ -3,9 +3,50 @@ import personsService from './services/persons'
 
 const Person = ({ person, handleDelete }) => {
   return (
-    <li>{person.name} {person.number}
+    <li className='person'>
+      {person.name} 
+      {person.number}
       <button onClick={() => handleDelete(person.id)}>delete</button>
     </li>
+  )
+}
+
+const ErrorNotification = ({ message }) => {
+  if (message === null) {
+    return null
+  }
+
+  return (
+    <div className="error">
+      {message}
+    </div>
+  )
+}
+
+const StatusNotification = ({ message }) => {
+  if (message === null) {
+    return null
+  }
+
+  return (
+    <div className="status">
+      {message}
+    </div>
+  )
+}
+
+const Footer = () => {
+  const footerStyle = {
+    color: 'green',
+    fontStyle: 'italic',
+    fontSize: 16
+  }
+
+  return (
+    <div style={footerStyle}>
+      <br />
+      <em>Puhelinluettelo app by Roope</em>
+    </div>
   )
 }
 
@@ -14,6 +55,8 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
+  const [errorMessage, setErrorMessage] = useState(null)
+  const [statusMessage, setStatusMessage] = useState(null)
 
   useEffect(() => {
     personsService
@@ -49,10 +92,18 @@ const App = () => {
       .remove(id)
       .then(() => {
         setPersons(personsState.filter(p => p.id !== id))
+        setStatusMessage(`Deleted ${person.name} succesfully`)
+        setTimeout(() => {
+          setStatusMessage(null)
+        }, 5000)
       })
       .catch(error => {
-        alert(`The person '${person.name}' was already deleted from server`)
-        setPersons(personsState.filter(p => p.id !== id))
+        setErrorMessage(
+          `Note '${person.name}' was already removed from server`
+        )
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
       })
     }
   }
@@ -70,6 +121,10 @@ const App = () => {
             setPersons(personsState.map(person => person.id !== returnedPerson.id ? person : returnedPerson))
             setNewName('')
             setNewNumber('')
+            setStatusMessage(`Updated ${newName} succesfully`)
+            setTimeout(() => {
+              setStatusMessage(null)
+            }, 5000)
         })
         console.log(`${newName} updated`)
       }
@@ -86,13 +141,19 @@ const App = () => {
           setPersons(personsState.concat(returnedPerson))
           setNewName('')
           setNewNumber('')
+          setStatusMessage(`Added ${newName} succesfully`)
+          setTimeout(() => {
+            setStatusMessage(null)
+          }, 5000)
       })
     }
   }
 
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h1>Phonebook</h1>
+      <ErrorNotification message={errorMessage} />
+      <StatusNotification message={statusMessage} />
       <div>
         filter shown with <input
           value={filter}
@@ -123,6 +184,7 @@ const App = () => {
           <Person key={person.name} person={person} handleDelete={handleDelete} />
         )}
       </ul>
+      <Footer />
     </div>
   )
 
