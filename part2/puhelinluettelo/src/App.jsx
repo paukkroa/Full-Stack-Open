@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import personsService from './services/persons'
 
-const Person = ({ person }) => {
+const Person = ({ person, handleDelete }) => {
   return (
-    <li>{person.name} {person.number}</li>
+    <li>{person.name} {person.number}
+      <button onClick={() => handleDelete(person.id)}>delete</button>
+    </li>
   )
 }
 
@@ -38,6 +40,21 @@ const App = () => {
   const handleFilterChange = (event) => {
     console.log(event.target.value)
     setFilter(event.target.value)
+  }
+
+  const handleDelete = (id) => {
+    const person = personsState.find(p => p.id === id)
+    if (window.confirm(`Delete ${person.name}?`)) {
+      personsService
+      .remove(id)
+      .then(() => {
+        setPersons(personsState.filter(p => p.id !== id))
+      })
+      .catch(error => {
+        alert(`The person '${person.name}' was already deleted from server`)
+        setPersons(personsState.filter(p => p.id !== id))
+      })
+    }
   }
 
   const addPerson = (event) => {
@@ -95,7 +112,7 @@ const App = () => {
       <h2>Numbers</h2>
       <ul>
         {personsToShow.map(person =>
-          <Person key={person.name} person={person} />
+          <Person key={person.name} person={person} handleDelete={handleDelete} />
         )}
       </ul>
     </div>
