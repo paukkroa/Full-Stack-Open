@@ -62,9 +62,17 @@ const App = () => {
     const exists = personsState.find(element => element.name === newName) !== undefined
     console.log(exists)
     if (exists) {
-      alert(`${newName} is already added to phonebook`)
-      setNewName('')
-      setNewNumber('')
+      console.log(`${newName} is already added to phonebook`)
+      if (window.confirm(`${newName} already exists in the phonebook. Replace the old number with a new one?`)) {
+        personsService
+          .update(personsState.find(p => p.name === newName).id, { name: newName, number: newNumber })
+            .then(returnedPerson => {
+            setPersons(personsState.map(person => person.id !== returnedPerson.id ? person : returnedPerson))
+            setNewName('')
+            setNewNumber('')
+        })
+        console.log(`${newName} updated`)
+      }
     }
     else {
       const personObject = {
