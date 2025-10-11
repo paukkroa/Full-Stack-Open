@@ -8,7 +8,14 @@
 # !path/to/allowed/file
 # !path/to/allowed/directory/
 !osa 0/
+!osa 0/**
 !part1/
+!part1/**
 !part2/
+!part2/**
+part2/playground/
 !part3/
+!part3/**
 
+# Ignore node_modules directories everywhere
+**/node_modules
