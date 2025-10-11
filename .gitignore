@@ -1,27 +1,14 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+# Ignore everything
+*
 
-node_modules
-dist
-dist-ssr
-*.local
+# But allow these specific files/directories
+!.gitignore
+!README.md
+# Add more allowed files with ! prefix
+# !path/to/allowed/file
+# !path/to/allowed/directory/
+!osa 0/
+!part1/
+!part2/
+!part3/
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-part1/kurssitiedot/src/Counter.jsx
-part1/kurssitiedot/src/MultipleStates.jsx
-part2/playground
