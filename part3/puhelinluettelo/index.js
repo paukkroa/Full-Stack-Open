@@ -67,6 +67,16 @@ app.post('/api/persons', (request, response) => {
         })
     }
 
+    names = persons.map(p => p.name)
+    console.log(names)
+
+    found = names.find(name => name === body.name)
+    if (found) {
+        return response.status(400).json({
+            error: 'name must be unique'
+        })
+    }
+
     const person = {
         id: generateId(),
         name: body.name,
