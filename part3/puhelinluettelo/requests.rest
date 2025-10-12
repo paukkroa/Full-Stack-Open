@@ -76,3 +76,68 @@ Content-Type: application/json
 {
   "name": "Test Person"
 }
+
+### Test valid phone numbers (should succeed)
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Valid Test 1",
+  "number": "09-1234556"
+}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Valid Test 2",
+  "number": "040-22334455"
+}
+
+### Test invalid phone numbers (should fail)
+
+### Too short number (less than 8 characters)
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Invalid Test 1",
+  "number": "123456"
+}
+
+### First part has only 1 digit (should be 2-3)
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Invalid Test 3",
+  "number": "1-22334455"
+}
+
+### First part has 4 digits (should be 2-3)
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Invalid Test 4",
+  "number": "1234-22334455"
+}
+
+### Multiple hyphens
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Invalid Test 5",
+  "number": "10-22-334455"
+}
+
+### Contains letters
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Invalid Test 6",
+  "number": "09-123abc"
+}
