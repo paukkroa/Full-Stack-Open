@@ -1,0 +1,32 @@
+### Get all persons
+GET http://localhost:3001/api/persons
+
+###
+GET http://localhost:3001/api/info
+
+### Add a new person
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Anna",
+  "number": "040-1234556"
+}
+
+### Add person with spaces in name
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Arto Vihavainen",
+  "number": "045-1232456"
+}
+
+### Add another person
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Ada Lovelace",
+  "number": "040-1231236"
+}
