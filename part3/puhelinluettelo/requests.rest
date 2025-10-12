@@ -51,3 +51,28 @@ GET http://localhost:3001/api/persons/invalid_id_format
 
 ### Test non-existing id (but valid format)
 GET http://localhost:3001/api/persons/507f1f77bcf86cd799439011
+
+### Test validation - name too short (should fail)
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Ab",
+  "number": "040-1234556"
+}
+
+### Test validation - missing name (should fail)
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "number": "040-1234556"
+}
+
+### Test validation - missing number (should fail)
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Test Person"
+}

@@ -128,10 +128,12 @@ const App = () => {
             }, 5000)
             console.log(`${newName} updated`)
         }).catch(error => {
-          console.log(error)
-          setErrorMessage(
-            `'${newName}' was already removed from server`
-          )
+          console.log(error.response.data)
+          if (error.response.data.error) {
+            setErrorMessage(error.response.data.error)
+          } else {
+            setErrorMessage(`'${newName}' was already removed from server`)
+          }
           setTimeout(() => {
             setErrorMessage(null)
           }, 5000)
@@ -154,6 +156,13 @@ const App = () => {
           setTimeout(() => {
             setStatusMessage(null)
           }, 5000)
+      })
+      .catch(error => {
+        console.log(error.response.data)
+        setErrorMessage(error.response.data.error)
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
       })
     }
   }
