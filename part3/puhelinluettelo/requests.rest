@@ -4,6 +4,9 @@ GET http://localhost:3001/api/persons
 ###
 GET http://localhost:3001/api/info
 
+### Get single person (replace ID with actual ID from database)
+GET http://localhost:3001/api/persons/YOUR_ID_HERE
+
 ### Add a new person
 POST http://localhost:3001/api/persons
 Content-Type: application/json
@@ -30,3 +33,21 @@ Content-Type: application/json
   "name": "Ada Lovelace",
   "number": "040-1231236"
 }
+
+### Update person's number (replace ID with actual ID from database)
+PUT http://localhost:3001/api/persons/68ebd3524f512b3c1f71c9be
+Content-Type: application/json
+
+{
+  "name": "Anna",
+  "number": "040-9999999"
+}
+
+### Delete person (replace ID with actual ID from database)
+DELETE http://localhost:3001/api/persons/68ebd3524f512b3c1f71c9be
+
+### Test malformatted id
+GET http://localhost:3001/api/persons/invalid_id_format
+
+### Test non-existing id (but valid format)
+GET http://localhost:3001/api/persons/507f1f77bcf86cd799439011
