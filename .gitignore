@@ -19,3 +19,6 @@ part2/playground/
 
 # Ignore node_modules directories everywhere
 **/node_modules
+
+# Ignore env files
+**.env
