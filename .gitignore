@@ -16,6 +16,8 @@
 part2/playground/
 !part3/
 !part3/**
+!part4/
+!part4/**
 
 # Ignore node_modules directories everywhere
 **/node_modules
